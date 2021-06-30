@@ -2,6 +2,7 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -60,8 +61,9 @@ public class TechJobs {
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
 
-                if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                if (searchField.equals("all")) { //findByValue to be added here I think,pretty sure
+                    printJobs(JobData.findByValue(searchTerm)); //I'm getting confused between use of value and searchTerm
+                    //System.out.println("Search all fields not yet implemented.");
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -110,7 +112,20 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if (someJobs.isEmpty()) {
+            System.out.println("Sorry, no results to display");
+        } else {
 
-        System.out.println("printJobs is not implemented yet");
+            //System.out.println("printJobs is not implemented yet");
+            for (HashMap<String, String> jobs : someJobs) {
+                System.out.println("**********");
+                //System.out.println(jobs);
+                //for (Map.Entry<string, string> job : jobs.entrySet()) string needs to be String
+                for (Map.Entry<String, String> job : jobs.entrySet()) {
+                    System.out.println(job.getKey() + ": " + job.getValue());
+                }
+                System.out.println("**********");
+            }
+        }
     }
 }
